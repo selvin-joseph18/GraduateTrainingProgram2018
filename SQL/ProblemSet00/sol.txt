@@ -1,16 +1,19 @@
 SOLUTIONS FOR PROBLEM SET00 
 --------------------------------------------------------------
 1.Select the Employee with the top three salaries
+query:
  select * from EMPLOYEE order by SALARY desc LIMIT 3;
  A142|TARA CUMMINGS|D04|99475|A187
  A132|PAUL VINCET|D01|94791|A120
  A128|ADAM WAYNE|D05|94324|A165
 
 2.Select the Employee with the least salary:
- select NAME,SALARY from EMPLOYEE where SALARY=(select min(SALARY) from EMPLOYEE);
+ query:
+ select NAME,MIN(SALARY) AS [Minimum-Salary] from EMPLOYEE;
  JOHN HELLEN|15380
 
 3.Select the Employee who does not have a manager in the department table:
+ query:
  select E_ID,NAME from EMPLOYEE where MANAGER_ID not in (select E_ID from EMPLOYEE);
  A178|BRUCE WILLS
  A120|TIM ARCHER
@@ -19,6 +22,7 @@ SOLUTIONS FOR PROBLEM SET00
  A165|NATASHA STEVENS
  
 4.Select the Employee who is also a Manager:
+ query:
  select distinct e1.MANAGER_ID,e2.NAME from EMPLOYEE e1 inner join EMPLOYEE e2 where e1.MANAGER_ID=e2.E_ID;
  A120|TIM ARCHER
  A187|ADAM JUSTIN
@@ -27,6 +31,7 @@ SOLUTIONS FOR PROBLEM SET00
  A178|BRUCE WILLS
  
 5.Select the Employee who is a Manager and has least salary:
+ query:
  select min(SALARY),NAME from EMPLOYEE e1 inner join DEPT d1 on d1.DEP_ID=e1.DEP_ID where e1.NAME=d1.DEP_MANAGER;
  27700|ROBERT SWIFT
 
@@ -68,7 +73,7 @@ SOLUTIONS FOR PROBLEM SET00
   D02|A133|A187
 
 13.Select the Average Expenses for Each dept with Dept id and Dept name
- select avg(SALARY),d.DEP_ID,d.DEP_NAME from EMPLOYEE e inner join DEPT d on e.DEP_ID=d.DEP_ID group by e.DEP_ID;
+ select avg(SALARY),d.DEP_ID,d.DEP_NAME from EMPLOYEE e inner join DEPT d on e.DEP_ID=d.DEP_ID group by e.DEP_ID,e.DEPT_NAME;
  55666.4|D01|HEALTH
  48271.3333333333|D02|COMMUNICATIONS
  55289.6666666667|D03|PRODUCT
@@ -84,7 +89,7 @@ SOLUTIONS FOR PROBLEM SET00
   D04|INSURANCE|ROBERT SWIFT|155740|D04
 
 16.Select the count of Employees in each department
-  select count(*),DEP_ID from EMPLOYEE group by DEP_ID;
+  select count(*),DEP_ID from EMPLOYEE group by DEPT_ID;
   5|D01
   6|D02
   3|D03
@@ -96,7 +101,7 @@ SOLUTIONS FOR PROBLEM SET00
   no record found
 
 18.Select the total number of Employees in Dept id D04
-  select count(*) from EMPLOYEE where DEP_ID='D04' group by DEP_ID;
+  select count(*) from EMPLOYEE where DEP_ID='D04';
   3
   
 19.Select all department details of the Department with Maximum Employees
